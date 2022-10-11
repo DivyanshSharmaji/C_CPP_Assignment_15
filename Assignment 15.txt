@@ -1,0 +1,345 @@
+Assignment - 15 A Job Ready Bootcamp in C++, DSA and IOT MySirG
+
+Array and Functions in C Language
+
+1. Write a function to find the greatest number from the given array of any size. (TSRS)
+2. Write a function to find the smallest number from the given array of any size. (TSRS)
+3. Write a function to sort an array of any size. (TSRS)
+4. Write a function to rotate an array by n position in d direction. The d is an indicative
+value for left or right. (For example, if array of size 5 is [32, 29, 40, 12, 70]; n is 2 and
+d is left, then the resulting array after left rotation 2 times is [40, 12, 70, 32, 29] )
+5. Write a function to find the first occurrence of adjacent duplicate values in the array.
+Function has to return the value of the element.
+6. Write a function in C to read n number of values in an array and display it in reverse
+order.
+7. Write a function in C to count a total number of duplicate elements in an array.
+8. Write a function in C to print all unique elements in an array.
+9. Write a function in C to merge two arrays of the same size sorted in descending
+order.
+10. Write a function in C to count the frequency of each element of an array.
+
+Solutions:
+
+Ans-1:  #include<stdio.h>
+
+        int high(int arr[],int m){
+            m = arr[0];
+            for(int i=1;i<10;i++){
+                if(arr[i]>m){
+                    m = arr[i];
+                }
+            }
+            return m;
+        }
+
+        int main(){
+
+            int arr[10],i,max;
+            printf("Enter array elements : ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("Highest : %d\n",high(arr,max));
+
+            return 0;
+        }
+
+Ans-2:  #include<stdio.h>
+
+        int low(int arr[],int m){
+            m = arr[0];
+            for(int i=1;i<10;i++){
+                if(arr[i]<m){
+                    m = arr[i];
+                }
+            }
+            return m;
+        }
+
+        int main(){
+
+            int arr[10],i,min;
+            printf("Enter array elements : ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("Lowest : %d\n",low(arr,min));
+
+            return 0;
+        }
+
+Ans-3:  #include<stdio.h>
+        
+        void *sortArr(int arr[]){
+            int i,j,temp;
+            for(i=0;i<9;i++){
+                for(j=i+1;j<10;j++){
+                    if(arr[i]>arr[j]){
+                        temp = arr[i];
+                        arr[i] = arr[j];
+                        arr[j] = temp;
+                    }
+                }
+            }
+        }
+
+        int main(){
+        
+            int arr[10],i;
+            printf("Enter array elements : ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            sortArr(arr);
+            printf("Sorted array is : ");
+            for(i=0;i<10;i++){
+                printf("%d ",arr[i]);
+            }
+            
+        
+            return 0;
+        }
+
+
+Ans-4:  #include<stdio.h>
+
+        int main(){
+        
+            int arr[10],d,n,i,j,temp;
+            printf("Enter the array elements: ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("Enter the number of positions: ");
+            scanf("%d",&n);
+            printf("Enter the direction (0 for left and 1 for right): ");
+            scanf("%d",&d);
+            if(d){
+                for(i=0;i<n;i++){
+                    temp = arr[9];
+                    for(j=9;j>0;j--){
+                        arr[j] = arr[j-1];
+                    }
+                    arr[0] = temp;
+                }
+            }
+            else{
+                for(i=0;i<n;i++){
+                    temp = arr[0];
+                    for(j=0;j<9;j++){
+                        arr[j] = arr[j+1];
+                    }
+                    arr[9] = temp;
+                }
+            }
+            printf("\n\nArray after rotation is: \n");
+            for(i=0;i<10;i++){
+                printf("%d ",arr[i]);
+            }
+
+            return 0;
+        }
+
+Ans-5:  #include<stdio.h>
+
+        int adDouplicate(int a[],int size){
+            int i;
+            for(i=1;i<size-1;i++){
+                if(a[i-1]==a[i+1]){
+                    return (a[i]);
+                } 
+            }
+            return 0;
+        }
+
+        int main(){
+        
+            int arr[10],i,fouc;
+            printf("Enter the array elements: ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            fouc = adDouplicate(arr,10);
+            if(fouc){
+                printf("%d position have two adjacent elements being equal\n",fouc);            
+            }
+            else{
+                printf("No adjacent element are equal\n");
+            }
+            return 0;
+        }
+
+Ans-6:  #include<stdio.h>
+
+        void printRev(int a[],int size){
+            int i;
+            for(i=size-1;i>=0;i--){
+                printf("%d ",a[i]);
+            }
+        }
+
+        int main(){
+        
+            int i,size;
+            printf("Enter the size of the array: ");
+            scanf("%d",&size);
+            int arr[size];
+            printf("Enter the array elements: ");
+            for(i=0;i<size;i++){
+                scanf("%d",&arr[i]);
+            }
+            printRev(arr,size);
+
+            return 0;
+        }
+
+Ans-7:  #include<stdio.h>
+
+        void countDup(int a[],int size){
+            int i,j,count[20]={0},flag;
+
+            for(i=0;i<size;i++){
+                for(j=0;j<size;j++){
+                    if(i==j){
+                        continue;
+                    }
+                    else if(a[i]==a[j]){
+                        count[i]++;
+                    }
+                }
+            }
+            for(i=0;i<size;i++){
+                for(j=i+1;j<size;j++){
+                    if(a[i]==a[j]){
+                        a[j]=0;
+                    }
+                }
+            }
+            for(i=0;i<size;i++){
+                if(a[i]!=0)
+                    printf("%d -> %d\n",a[i],count[i]);
+            }
+        }
+
+        int main(){
+        
+            int i,arr[20];
+            printf("Enter the array elements: ");
+            for(i=0;i<20;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("Numbers with their duplicate elements: \n");
+            countDup(arr,20);
+
+            return 0;
+        }
+
+Ans-8:  #include<stdio.h>
+
+        void unique(int a[],int size){
+            int i,j,flag;
+            for(i=0;i<size;i++){
+                flag = 1;
+                for(j=i+1;j<size;j++){
+                    if(a[i]==a[j]){
+                        flag=0;
+                        break;
+                    }
+                }
+                if(flag){
+                    printf("%d ",a[i]);
+                }
+            }
+        }
+
+        int main(){
+        
+            int i,arr[10];
+            printf("Enter the array elements: ");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("All the unique numbers: \n");
+            unique(arr,10);
+
+            return 0;
+        }
+
+Ans-9:  #include<stdio.h>
+
+        void merge(int a[],int b[],int size){
+            int i,j,temp,m[2*size];
+            for(i=0;i<size;i++){
+                m[i] = a[i];
+            }
+            for(j=0;i<2*size;i++,j++){
+                m[i] = b[j];
+            }
+            for(i=0;i<2*size;i++){
+                for(j=i+1;j<2*size;j++){
+                    if(m[i]<m[j]){
+                        temp = m[i];
+                        m[i] = m[j];
+                        m[j] = temp;
+                    }
+                }
+            }
+            for(i=0;i<2*size;i++){
+                printf("%d ",m[i]);
+            }
+        }
+
+        int main(){
+        
+            int i,arr1[10],arr2[10];
+            printf("Enter the array 1 elements: \n");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr1[i]);
+            }
+            printf("Enter the array 2 elements: \n");
+            for(i=0;i<10;i++){
+                scanf("%d",&arr2[i]);
+            }
+            printf("Merged array in descending order is : \n");
+            merge(arr1,arr2,10);
+
+            return 0;
+        }
+
+Ans-10: #include<stdio.h>
+
+        void countDup(int a[],int size){
+            int i,j,count[20]={0},flag;
+
+            for(i=0;i<size;i++){
+                for(j=0;j<size;j++){
+                    if(a[i]==a[j]){
+                        count[i]++;
+                    }
+                }
+            }
+            for(i=0;i<size;i++){
+                for(j=i+1;j<size;j++){
+                    if(a[i]==a[j]){
+                        a[j]=0;
+                    }
+                }
+            }
+            for(i=0;i<size;i++){
+                if(a[i]!=0)
+                    printf("%d -> %d\n",a[i],count[i]);
+            }
+        }
+
+        int main(){
+        
+            int i,arr[20];
+            printf("Enter the array elements: ");
+            for(i=0;i<20;i++){
+                scanf("%d",&arr[i]);
+            }
+            printf("Numbers with their duplicate elements: \n");
+            countDup(arr,20);
+
+            return 0;
+        }
